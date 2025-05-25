@@ -581,6 +581,9 @@ class AfterDetailerScript(scripts.Script):
         if not ad_save_images_dir.strip():
             ad_save_images_dir = p.outpath_samples
 
+        # Read existing metadata from the image to preserve it
+        _, existing_info = images.read_info_from_image(image)
+
         images.save_image(
             image=image,
             path=ad_save_images_dir,
@@ -591,6 +594,7 @@ class AfterDetailerScript(scripts.Script):
             info=self.infotext(p),
             p=p,
             suffix=suffix,
+            existing_info=existing_info,
         )
 
     def get_ad_model(self, name: str):
